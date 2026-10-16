@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="theme-color" content="#163b2a" />
+<title>Libra — Library Management</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-mark">L</div>
+        <div><strong>Libra</strong><span>Library Desk</span></div>
+      </div>
+      <div class="side-label">Workspace</div>
+      <nav class="side-nav" aria-label="Main navigation">
+        <button class="nav-btn active" data-tab="dashboard"><span class="nav-icon">⌂</span> Dashboard</button>
+        <button class="nav-btn" data-tab="books"><span class="nav-icon">▤</span> Books</button>
+        <button class="nav-btn" data-tab="members"><span class="nav-icon">♙</span> Members</button>
+        <button class="nav-btn" data-tab="loans"><span class="nav-icon">↔</span> Loans</button>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="desk-card"><span class="status-dot"></span><div><b>Library desk</b><small>System online</small></div></div>
+        <p>Keep your collection organized and your readers moving.</p>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="mobile-header">
+        <div class="brand"><div class="brand-mark">L</div><strong>Libra</strong></div>
+        <button id="mobileMenuBtn" class="icon-btn" aria-label="Open menu">☰</button>
+      </header>
+
+      <section id="dashboard" class="tab-panel active">
+        <div class="page-heading">
+          <div><span class="eyebrow">LIBRARY OVERVIEW</span><h1>Good evening, Librarian.</h1><p>Here’s a quick look at what’s happening in your library.</p></div>
+          <button class="primary-btn" id="quickCheckoutBtn">＋ Quick checkout</button>
+        </div>
+        <div class="stats-grid">
+          <article class="stat-card"><div class="stat-icon books-icon">▤</div><div><span>Total books</span><strong id="statBooks">—</strong></div><small id="statBooksMeta">Across your collection</small></article>
+          <article class="stat-card"><div class="stat-icon member-icon">♙</div><div><span>Members</span><strong id="statMembers">—</strong></div><small>Registered readers</small></article>
+          <article class="stat-card"><div class="stat-icon loan-icon">↗</div><div><span>On loan</span><strong id="statLoans">—</strong></div><small id="statLoansMeta">Currently checked out</small></article>
+          <article class="stat-card alert-card"><div class="stat-icon alert-icon">!</div><div><span>Overdue</span><strong id="statOverdue">—</strong></div><small>Need attention</small></article>
+        </div>
+        <div class="dashboard-grid">
+          <section class="content-card activity-card">
+            <div class="card-heading"><div><h2>Recent activity</h2><p>Latest checkouts and returns</p></div><button class="text-btn" data-tab-link="loans">View all →</button></div>
+            <div id="recentActivity" class="activity-list"></div>
+          </section>
+          <section class="content-card collection-card">
+            <div class="card-heading"><div><h2>Collection status</h2><p>Availability at a glance</p></div></div>
+            <div class="availability-meter"><div class="meter-label"><span>Available copies</span><b id="availablePercent">—</b></div><div class="meter"><span id="availableMeter"></span></div><p id="availabilityText">Loading collection data…</p></div>
+            <div class="mini-stat"><span>Most recent book</span><b id="latestBook">—</b></div>
+          </section>
+        </div>
+      </section>
+
+      <section id="books" class="tab-panel">
+        <div class="page-heading compact"><div><span class="eyebrow">COLLECTION</span><h1>Books</h1><p>Manage titles, copies and availability.</p></div><button class="primary-btn" id="addBookBtn">＋ Add book</button></div>
+        <div class="toolbar"><div class="search-wrap"><span>⌕</span><input type="search" id="bookSearch" placeholder="Search title or author…" /></div><span class="result-count" id="bookCount">—</span></div>
+        <div class="content-card table-card"><div class="table-scroll"><table><thead><tr><th>Book</th><th>ISBN</th><th>Availability</th><th>Actions</th></tr></thead><tbody id="booksTableBody"></tbody></table></div></div>
+      </section>
+
+      <section id="members" class="tab-panel">
+        <div class="page-heading compact"><div><span class="eyebrow">COMMUNITY</span><h1>Members</h1><p>Keep reader records accurate and up to date.</p></div><button class="primary-btn" id="addMemberBtn">＋ Add member</button></div>
+        <div class="toolbar"><div class="search-wrap"><span>⌕</span><input type="search" id="memberSearch" placeholder="Search name or email…" /></div><span class="result-count" id="memberCount">—</span></div>
+        <div class="content-card table-card"><div class="table-scroll"><table><thead><tr><th>Member</th><th>Email</th><th>Phone</th><th>Actions</th></tr></thead><tbody id="membersTableBody"></tbody></table></div></div>
+      </section>
+
+      <section id="loans" class="tab-panel">
+        <div class="page-heading compact"><div><span class="eyebrow">CIRCULATION</span><h1>Loans</h1><p>Check books out, process returns and track due dates.</p></div></div>
+        <section class="checkout-card"><div><span class="eyebrow light">NEW LOAN</span><h2>Check out a book</h2><p>Choose a title and reader, then set the loan period.</p></div><form id="checkoutForm" class="checkout-form"><select id="checkoutBook" required></select><select id="checkoutMember" required></select><div class="days-input"><input type="number" id="checkoutDays" min="1" max="365" value="14" required><span>days</span></div><button class="light-btn" type="submit">Checkout</button></form></section>
+        <div class="section-heading"><div><h2>Loan history</h2><p>Active loans are shown by default.</p></div><label class="switch-label"><input type="checkbox" id="activeOnlyToggle" checked><span class="switch"></span> Active only</label></div>
+        <div class="content-card table-card"><div class="table-scroll"><table><thead><tr><th>Book</th><th>Member</th><th>Checked out</th><th>Due</th><th>Status</th><th>Action</th></tr></thead><tbody id="loansTableBody"></tbody></table></div></div>
+      </section>
+    </main>
+  </div>
+
+  <div id="bookModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="bookModalTitle"><div class="modal-backdrop" data-close="bookModal"></div><div class="modal-panel"><button class="modal-close" data-close="bookModal">×</button><span class="eyebrow">COLLECTION</span><h2 id="bookModalTitle">Add a book</h2><p>Enter the details for this title.</p><form id="bookForm" class="modal-form"><input type="hidden" id="bookId"><label>Title<input type="text" id="bookTitle" required maxlength="200"></label><label>Author<input type="text" id="bookAuthor" required maxlength="160"></label><label>ISBN<input type="text" id="bookIsbn" required maxlength="40"></label><label>Quantity<input type="number" id="bookQuantity" min="1" value="1" required></label><div class="modal-actions"><button type="button" class="secondary-btn" data-close="bookModal">Cancel</button><button type="submit" class="primary-btn" id="bookSubmitBtn">Add book</button></div></form></div></div>
+
+  <div id="memberModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="memberModalTitle"><div class="modal-backdrop" data-close="memberModal"></div><div class="modal-panel"><button class="modal-close" data-close="memberModal">×</button><span class="eyebrow">COMMUNITY</span><h2 id="memberModalTitle">Add a member</h2><p>Create a reader profile for your library.</p><form id="memberForm" class="modal-form"><input type="hidden" id="memberId"><label>Full name<input type="text" id="memberName" required maxlength="120"></label><label>Email<input type="email" id="memberEmail" required maxlength="160"></label><label>Phone <span>(optional)</span><input type="text" id="memberPhone" maxlength="40"></label><div class="modal-actions"><button type="button" class="secondary-btn" data-close="memberModal">Cancel</button><button type="submit" class="primary-btn" id="memberSubmitBtn">Add member</button></div></form></div></div>
+
+  <div id="confirmModal" class="modal hidden" role="dialog" aria-modal="true"><div class="modal-backdrop"></div><div class="modal-panel small"><div class="confirm-icon">!</div><h2 id="confirmTitle">Are you sure?</h2><p id="confirmText"></p><div class="modal-actions"><button id="confirmCancel" class="secondary-btn">Cancel</button><button id="confirmAction" class="danger-btn">Delete</button></div></div></div>
+  <div id="toast" class="toast hidden"></div>
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,11 @@
+services:
+  library-app:
+    build: .
+    ports:
+      - "8001:8001"
+    volumes:
+      - library-data:/app/backend
+    restart: unless-stopped
+
+volumes:
+  library-data:
