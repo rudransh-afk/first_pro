@@ -14,7 +14,7 @@ function showToast(message, isError = false) {
 }
 
 async function apiRequest(path, options = {}) {
-  const res = await fetch(`${API_BASE}${path}`, { headers: { "Content-Type": "application/json", ...(options.headers || {}) }, ...options });
+  const res = await fetch(`${API_BASE}/api${path}`, { headers: { "Content-Type": "application/json", ...(options.headers || {}) }, ...options });
   if (!res.ok) {
     let detail = "Something went wrong";
     try { const body = await res.json(); detail = body.detail || detail; } catch (_) {}
