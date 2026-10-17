@@ -1,4 +1,4 @@
-const API_BASE = "https://greenwitchlibrary.onrender.com/";
+const API_BASE = "https://greenwitchlibrary.onrender.com";
 let editingBookId = null;
 let editingMemberId = null;
 let confirmResolver = null;
